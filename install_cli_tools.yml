@@ -1,0 +1,23 @@
+---
+- name: Install CLI tools on macOS
+  hosts: all
+  gather_facts: no
+  vars:
+    cli_tools:
+      - zoxide
+      - fish
+      - exa
+      - bat
+      - starship
+      - lazygit
+      - fzf
+      - git
+
+  tasks:
+    - name: Install Homebrew packages
+      ansible.builtin.homebrew:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ cli_tools }}"
+
+# ansible-playbook -i 'localhost,' -c local install_cli_tools.yml
